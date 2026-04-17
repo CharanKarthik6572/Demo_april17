@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodieHub - Delicious Food Ordering</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1>FoodieHub</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#popular">Popular</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#checkout">Checkout</a></li>
+            </ul>
+            <div class="cart-icon" onclick="toggleCart()">
+                <i class="fas fa-shopping-cart"></i>
+                <span id="cart-count">0</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h2>Delicious Food Delivered Fast</h2>
+            <p>Order your favorite meals from the comfort of your home</p>
+            <div class="hero-buttons">
+                <button class="btn-primary" onclick="scrollToSection('popular')">Order Now</button>
+                <button class="btn-secondary" onclick="scrollToSection('menu')">View Menu</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Offers Section -->
+    <section id="offers" class="offers-section">
+        <div class="container">
+            <h2>Special Offers Today</h2>
+            <div class="offers-grid">
+                <div class="offer-card">
+                    <div class="offer-icon">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <h3>30% OFF</h3>
+                    <p>On Pizza Orders</p>
+                    <small>Valid till tonight</small>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>FREE DELIVERY</h3>
+                    <p>Orders above ₹300</p>
+                    <small>Applicable citywide</small>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>EARN POINTS</h3>
+                    <p>10 Points per order</p>
+                    <small>Redeem for rewards</small>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="popular">
+        <div class="container">
+            <h2>Popular Dishes</h2>
+            <div class="food-grid" id="popular-foods">
+                <!-- Popular foods will be populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu">
+        <div class="container">
+            <h2>Our Menu</h2>
+            <div class="menu-controls">
+                <input type="text" id="search" placeholder="Search food items...">
+                <div class="category-buttons">
+                    <button class="category-btn active" data-category="all">All</button>
+                    <button class="category-btn" data-category="pizza">Pizza</button>
+                    <button class="category-btn" data-category="burger">Burgers</button>
+                    <button class="category-btn" data-category="drink">Drinks</button>
+                    <button class="category-btn" data-category="dessert">Desserts</button>
+                </div>
+            </div>
+            <div class="food-grid" id="menu-foods">
+                <!-- Menu foods will be populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <span class="close-cart" onclick="toggleCart()">&times;</span>
+        </div>
+        <div id="cart-items">
+            <!-- Cart items will be populated by JS -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>Total: ₹<span id="cart-total">0</span></strong>
+            </div>
+            <button id="checkout-btn" onclick="showCheckout()">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Checkout Section -->
+    <section id="checkout" class="checkout-section">
+        <div class="container">
+            <h2>Checkout</h2>
+            <form id="checkout-form">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Delivery Address</label>
+                    <textarea id="address" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="payment">Payment Method</label>
+                    <select id="payment" required>
+                        <option value="">Select Payment Method</option>
+                        <option value="card">Credit/Debit Card</option>
+                        <option value="upi">UPI</option>
+                        <option value="cod">Cash on Delivery</option>
+                    </select>
+                </div>
+                <button type="submit">Place Order</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Order Confirmation Modal -->
+    <div id="order-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-body">
+                <i class="fas fa-check-circle success-icon"></i>
+                <h2>Order Placed Successfully!</h2>
+                <p>Your delicious food will be delivered soon.</p>
+                <p>Order ID: <span id="order-id"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <i class="fas fa-check"></i>
+        <span id="toast-message">Item added to cart!</span>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scroll-top" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>FoodieHub</h3>
+                    <p>Delicious food delivered to your doorstep.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 FoodieHub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
